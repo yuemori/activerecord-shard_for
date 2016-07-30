@@ -23,7 +23,7 @@ GIT
 PATH
   remote: ../
   specs:
-    activerecord-shard_for (0.1.0)
+    activerecord-shard_for (0.1.2)
       activerecord (>= 4.1.0)
       activesupport (>= 4.1.0)
       expeditor (>= 0.1.0)
