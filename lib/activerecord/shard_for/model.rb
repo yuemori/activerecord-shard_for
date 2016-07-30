@@ -59,6 +59,14 @@ module ActiveRecord
         def def_distkey(column)
           self.distkey = column.to_sym
         end
+
+        # Returns all generated shard model class. Useful to query to all shards.
+        # @return [Array<Class>] An array of shard models
+        # @example
+        #   User.all_shards.flat_map {|m| m.find_by(name: 'alice') }.compact
+        def all_shards
+          shard_repository.all
+        end
       end
     end
   end

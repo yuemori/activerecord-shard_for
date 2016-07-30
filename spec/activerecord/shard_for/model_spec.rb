@@ -64,4 +64,13 @@ RSpec.describe ActiveRecord::ShardFor::Model do
       expect(record.name).to eq('Alice')
     end
   end
+
+  describe '.all_shards' do
+    before { model.put!(user_attributes) }
+
+    it 'returns all AR model classes and can search by finder methods' do
+      records = model.all_shards.flat_map { |m| m.find_by(name: 'Alice') }.compact
+      expect(records.size).to eq(1)
+    end
+  end
 end
