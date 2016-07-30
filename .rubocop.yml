@@ -23,3 +23,6 @@ Metrics/MethodLength:
 
 Style/ParallelAssignment:
   Enabled: false
+
+Style/Alias:
+  EnforcedStyle: prefer_alias_method

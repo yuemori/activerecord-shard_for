@@ -80,6 +80,14 @@ module ActiveRecord
         def all_shards
           shard_repository.all
         end
+
+        # @return [ActiveRecord::ShardFor::AllShardsInParallel]
+        # @example
+        #   User.all_shards_in_parallel.map {|m| m.where.find_by(name: 'Alice') }.compact
+        def all_shards_in_parallel
+          AllShardsInParallel.new(all_shards)
+        end
+        alias_method :parallel, :all_shards_in_parallel
       end
     end
   end

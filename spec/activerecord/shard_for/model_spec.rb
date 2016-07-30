@@ -67,15 +67,13 @@ RSpec.describe ActiveRecord::ShardFor::Model do
 
     context 'when record not exists' do
       it 'raises ActiveRecord::ShardFor::RecordNotFound' do
-        expect {
-          model.get!('not_exist@example.com')
-        }.to raise_error(ActiveRecord::ShardFor::RecordNotFound)
+        expect { model.get!('not_exist@example.com') }
+          .to raise_error(ActiveRecord::ShardFor::RecordNotFound)
       end
 
       it 'raises sub class of ActiveRecord::RecordNotFound' do
-        expect {
-          model.get!('not_exist@example.com')
-        }.to raise_error(ActiveRecord::RecordNotFound)
+        expect { model.get!('not_exist@example.com') }
+          .to raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end
@@ -96,6 +94,12 @@ RSpec.describe ActiveRecord::ShardFor::Model do
     it 'returns all AR model classes and can search by finder methods' do
       records = model.all_shards.flat_map { |m| m.find_by(name: 'Alice') }.compact
       expect(records.size).to eq(1)
+    end
+  end
+
+  describe '.all_shards_in_parallel' do
+    it 'returns a ActiveRecord::ShardFor::AllShardsInParallel' do
+      expect(User.all_shards_in_parallel).to be_a(ActiveRecord::ShardFor::AllShardsInParallel)
     end
   end
 end
