@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/yuemori/activerecord-shard_for.svg?branch=master)](https://travis-ci.org/yuemori/activerecord-shard_for)
 
+[![Dependency Status](https://gemnasium.com/badges/github.com/yuemori/activerecord-shard_for.svg)](https://gemnasium.com/github.com/yuemori/activerecord-shard_for)
+
 This is Sharding Library for ActiveRecord, inspire and import codes from [mixed_gauge](https://github.com/taiki45/mixed_gauge) and [activerecord-sharding](https://github.com/hirocaster/activerecord-sharding) (Thanks!).
 
 ## Concept
