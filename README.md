@@ -21,7 +21,7 @@ This idea principal take over from `mixed_gauge`, and `activerecord-sharding`. `
 
 ### pluggable
 
-Default sharding rule is hash and modulo. But, `activerecord-shard_for` adopt pluggable structer. This rule can be easy to change!
+Default sharding rule is [modulo with hashed key](https://github.com/yuemori/activerecord-shard_for/blob/master/lib/activerecord/shard_for/hash_modulo_router.rb). But, `activerecord-shard_for` adopt pluggable structer. This rule can be easy to change!
 
 ## Installation
 
