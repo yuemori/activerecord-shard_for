@@ -266,7 +266,15 @@ And specify router in your AR model.
 class User < ActiveRecord::Base
   include ActiveRecord::ShardFor::Model
   use_cluster :user, :modulo
-  def_distkey :email
+  def_distkey :id
+
+  def self.generate_unique_id
+    # Implement to generate unique id
+  end
+
+  before_put do |attributes|
+    attributes[:id] = generate_unique_id unless attributes[:id]
+  end
 end
 ```
 
