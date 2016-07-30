@@ -42,6 +42,8 @@ GEM
     ast (2.3.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    codeclimate-test-reporter (0.6.0)
+      simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.1.1)
     concord (0.1.5)
       adamantium (~> 0.2.0)
@@ -51,6 +53,7 @@ GEM
       concurrent-ruby (~> 1.0.2)
     debug_inspector (0.0.2)
     diff-lcs (1.2.5)
+    docile (1.1.5)
     equalizer (0.0.11)
     expeditor (0.4.0)
       concurrent-ruby (~> 1.0.0)
@@ -78,6 +81,7 @@ GEM
     i18n (0.7.0)
     ice_nine (0.11.2)
     interception (0.5)
+    json (2.0.2)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -149,6 +153,11 @@ GEM
     ruby-progressbar (1.8.1)
     ruby_dep (1.3.1)
     shellany (0.0.1)
+    simplecov (0.12.0)
+      docile (~> 1.1.0)
+      json (>= 1.8, < 3)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.0)
     slop (3.6.0)
     sqlite3 (1.3.11)
     thor (0.19.1)
@@ -176,6 +185,7 @@ DEPENDENCIES
   appraisal
   arel!
   bundler (~> 1.11)
+  codeclimate-test-reporter
   guard-rspec
   guard-rubocop
   pry
