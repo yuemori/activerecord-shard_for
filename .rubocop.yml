@@ -2,4 +2,11 @@ AllCops:
   TargetRubyVersion: 2.3
   Exclude:
     - activerecord-shard_for.gemspec
+    - Guardfile
   DisplayCopNames: true
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
