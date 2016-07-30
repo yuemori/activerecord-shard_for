@@ -50,7 +50,7 @@ module ActiveRecord
 
         # Register hook to assign auto-generated distkey or something.
         # Sometimes you want to generates distkey value before validation. Since
-        # mixed_gauge generates sub class of your models, AR's callback is not
+        # activerecord-shard_for generates sub class of your models, AR's callback is not
         # useless for this usecase, so activerecord-shard_for offers its own callback method.
         # @example
         #   class User
@@ -85,8 +85,8 @@ module ActiveRecord
           raise ActiveRecord::ShardFor::RecordNotFound
         end
 
-        # Distkey is a column. mixed_gauge hashes that value and determine which
-        # shard to store.
+        # Distkey is a column. activerecord-shard_for gave to cluster_router that value
+        # and cluster_router determine which shard to store.
         # @param [Symbol] column
         def def_distkey(column)
           self.distkey = column.to_sym
