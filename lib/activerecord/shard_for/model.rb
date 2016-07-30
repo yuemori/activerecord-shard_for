@@ -8,6 +8,7 @@ module ActiveRecord
       included do
         class_attribute :cluster_router, instance_writer: false
         class_attribute :shard_repository, instance_writer: false
+        class_attribute :replication_mapping, instance_writer: false
         class_attribute :distkey, instance_writer: false
       end
 
@@ -88,6 +89,27 @@ module ActiveRecord
           AllShardsInParallel.new(all_shards)
         end
         alias_method :parallel, :all_shards_in_parallel
+
+        # @param [Hash{Symbol => Symbol}] mapping A pairs of role name and
+        #   AR model class name.
+        def replicates_with(mapping)
+          self.replication_mapping = ActiveRecord::ShardFor::ReplicationMapping.new(mapping)
+        end
+
+        # See example definitions in `spec/models.rb`.
+        # @param [Symbol] A role name of target cluster.
+        # @return [Class, Object] if block given then yielded result else
+        #   target shard model.
+        # @example
+        #   UserReadonly.all_shards.each do |m|
+        #     target_ids = m.where(age: 1).pluck(:id)
+        #     m.switch(:master) do |master|
+        #       master.where(id: target_ids).delete_all
+        #     end
+        #   end
+        def switch(role_name, &block)
+          replication_mapping.switch(self, role_name, &block)
+        end
       end
     end
   end

@@ -97,6 +97,13 @@ RSpec.describe ActiveRecord::ShardFor::Model do
     end
   end
 
+  describe '.switch' do
+    it 'retuns result' do
+      result = User.shard_for('x').switch(:slave) { 1 }
+      expect(result).to eq(1)
+    end
+  end
+
   describe '.all_shards_in_parallel' do
     it 'returns a ActiveRecord::ShardFor::AllShardsInParallel' do
       expect(User.all_shards_in_parallel).to be_a(ActiveRecord::ShardFor::AllShardsInParallel)

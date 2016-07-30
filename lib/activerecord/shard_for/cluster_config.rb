@@ -9,7 +9,7 @@ module ActiveRecord
         @connection_registry = {}
       end
 
-      # @param [Objet] key sharding name for connection
+      # @param [Object] key sharding key object for connection
       # @param [Symbol] connection_name
       # @raise [RuntimeError] when duplicate entry of  key
       def register(key, connection_name)
