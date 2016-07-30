@@ -21,6 +21,13 @@ module ActiveRecord
       def route(_key)
         raise NotImplementedError.new, 'Please impement this method'
       end
+
+      private
+
+      # @return [Integer] count of registered connection
+      def connection_count
+        cluster_config.connections.count
+      end
     end
   end
 end

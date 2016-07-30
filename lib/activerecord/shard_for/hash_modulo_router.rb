@@ -5,7 +5,7 @@ module ActiveRecord
     class HashModuloRouter < ClusterRouter
       # @param [String] key sharding key
       def route(key)
-        hash(key) % cluster_config.connections.count
+        hash(key) % connection_count
       end
 
       private
