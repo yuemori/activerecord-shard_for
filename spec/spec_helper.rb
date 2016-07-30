@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'activerecord/shard_for'
+require 'rspec-parameterized'
 require File.expand_path('../models', __FILE__)
 
 RSpec.configure do |config|

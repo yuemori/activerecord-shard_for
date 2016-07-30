@@ -1,10 +1,11 @@
 module ActiveRecord
   module ShardFor
     class Config
-      attr_reader :cluster_configs
+      attr_reader :cluster_configs, :routers
 
       def initialize
-        @cluster_configs = {}.with_indifferent_access
+        @cluster_configs = {}
+        @routers = {}
       end
 
       # Define config for specific cluster.
@@ -24,6 +25,20 @@ module ActiveRecord
       # @raise [KeyError] when not registered key given
       def fetch_cluster_config(cluster_name)
         cluster_configs.fetch(cluster_name)
+      end
+
+      # Register router for ActiveRecord::ShardFor
+      # See README.md for example.
+      # @param [Symbol] router_name
+      # @router_class [Class] router_class
+      def register_cluster_router(router_name, router_class)
+        routers[router_name] = router_class
+      end
+
+      # @param [Symbol] router_name
+      # @return [Class] registered class by [#register_router]
+      def fetch_cluster_router(router_name)
+        routers[router_name]
       end
     end
   end

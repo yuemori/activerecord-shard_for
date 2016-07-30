@@ -10,14 +10,14 @@ ActiveRecord::Base.establish_connection(:test)
 
 ActiveRecord::ShardFor.configure do |config|
   config.define_cluster(:user) do |cluster|
-    cluster.register(1, :test_user_001)
-    cluster.register(2, :test_user_002)
-    cluster.register(3, :test_user_003)
-    cluster.register(4, :test_user_004)
+    cluster.register(0, :test_user_001)
+    cluster.register(1, :test_user_002)
+    cluster.register(2, :test_user_003)
+    cluster.register(3, :test_user_004)
   end
 end
 
 class User < ActiveRecord::Base
   include ActiveRecord::ShardFor::Model
-  use_cluster :user
+  use_cluster :user, :hash_modulo
 end

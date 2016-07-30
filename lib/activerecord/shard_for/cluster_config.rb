@@ -9,17 +9,23 @@ module ActiveRecord
         @connection_registry = {}
       end
 
-      # @param [Integer] index index number for connection
+      # @param [Objet] key sharding name for connection
       # @param [Symbol] connection_name
-      # @raise [RuntimeError] when duplicate entry for index
-      def register(index, connection_name)
-        raise RuntimeError.new, "#{index} is registered" if connection_registry.key?(index)
-        connection_registry[index] = connection_name
+      # @raise [RuntimeError] when duplicate entry of  key
+      def register(key, connection_name)
+        raise RuntimeError.new, "#{key} is registered" if connection_registry.key?(key)
+        connection_registry[key] = connection_name
       end
 
       # @return [Array<Symbol>] An array of connection name
       def connections
         connection_registry.values
+      end
+
+      # @param [Object] key
+      # @return [Symbol] registered connection name
+      def fetch(key)
+        connection_registry.fetch(key)
       end
     end
   end

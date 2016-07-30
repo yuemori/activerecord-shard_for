@@ -35,4 +35,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'guard-rspec'
   spec.add_development_dependency 'appraisal'
   spec.add_development_dependency 'sqlite3'
+  spec.add_development_dependency 'rspec-parameterized'
 end
