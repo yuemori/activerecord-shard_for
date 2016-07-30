@@ -3,6 +3,7 @@ AllCops:
   Exclude:
     - activerecord-shard_for.gemspec
     - Guardfile
+    - lib/activerecord/tasks/activerecord_shard_for.rake
   DisplayCopNames: true
 
 Style/FrozenStringLiteralComment:
