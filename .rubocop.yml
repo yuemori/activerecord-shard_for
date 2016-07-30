@@ -10,3 +10,15 @@ Style/FrozenStringLiteralComment:
 
 Style/Documentation:
   Enabled: false
+
+Metrics/LineLength:
+  Max: 128
+
+Style/EmptyCaseCondition:
+  Enabled: false
+
+Metrics/MethodLength:
+  Max: 15
+
+Style/ParallelAssignment:
+  Enabled: false
