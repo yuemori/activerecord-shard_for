@@ -5,7 +5,7 @@ module ActiveRecord
 
       def initialize
         @cluster_configs = {}
-        @routers = {}
+        @connection_routers = {}
       end
 
       # Define config for specific cluster.
@@ -37,7 +37,7 @@ module ActiveRecord
 
       # @param [Symbol] router_name
       # @return [Class] registered class by [#register_router]
-      def fetch_connection__router(router_name)
+      def fetch_connection_router(router_name)
         connection_routers[router_name]
       end
     end

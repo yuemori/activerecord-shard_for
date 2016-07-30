@@ -6,7 +6,7 @@ module ActiveRecord
       extend ActiveSupport::Concern
 
       included do
-        class_attribute :cluster_router, instance_writer: false
+        class_attribute :connection_router, instance_writer: false
         class_attribute :shard_repository, instance_writer: false
         class_attribute :replication_mapping, instance_writer: false
         class_attribute :distkey, instance_writer: false
@@ -17,8 +17,8 @@ module ActiveRecord
         # @param [Symbol] name A cluster name which is set by ActiveRecord::ShardFor.configure
         def use_cluster(name, router_name)
           cluster_config = ActiveRecord::ShardFor.config.fetch_cluster_config(name)
-          cluster_router_class = ActiveRecord::ShardFor.config.fetch_cluster_router(router_name)
-          self.cluster_router = cluster_router_class.new(cluster_config)
+          connection_router_class = ActiveRecord::ShardFor.config.fetch_connection_router(router_name)
+          self.connection_router = connection_router_class.new(cluster_config)
           self.shard_repository = ActiveRecord::ShardFor::ShardRepogitory.new(cluster_config, self)
           self.abstract_class = true
         end
@@ -28,7 +28,7 @@ module ActiveRecord
         # @param [String] key A value of distkey
         # @return [Class] A generated model class for given distkey value
         def shard_for(key)
-          connection_name = cluster_router.fetch_connection_name(key)
+          connection_name = connection_router.fetch_connection_name(key)
           shard_repository.fetch(connection_name)
         end
 
