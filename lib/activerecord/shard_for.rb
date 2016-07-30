@@ -1,4 +1,5 @@
-require "activerecord/shard_for/version"
+# frozen_string_literal: true
+require 'activerecord/shard_for/version'
 
 module Activerecord
   module ShardFor
