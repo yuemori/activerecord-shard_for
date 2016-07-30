@@ -55,6 +55,31 @@ RSpec.describe ActiveRecord::ShardFor::Model do
     end
   end
 
+  describe '.get!' do
+    context 'when record exists' do
+      before { model.put!(user_attributes) }
+
+      it 'returns proper record' do
+        record = model.get('alice@example.com')
+        expect(record.email).to eq('alice@example.com')
+      end
+    end
+
+    context 'when record not exists' do
+      it 'raises ActiveRecord::ShardFor::RecordNotFound' do
+        expect {
+          model.get!('not_exist@example.com')
+        }.to raise_error(ActiveRecord::ShardFor::RecordNotFound)
+      end
+
+      it 'raises sub class of ActiveRecord::RecordNotFound' do
+        expect {
+          model.get!('not_exist@example.com')
+        }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+  end
+
   describe '.shard_for' do
     before { model.put!(user_attributes) }
 

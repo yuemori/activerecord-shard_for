@@ -53,6 +53,19 @@ module ActiveRecord
           shard_for(key).find_by(distkey => key)
         end
 
+        # `.get!` raises ActiveRecord::ShardFor::RecordNotFound which is child class of
+        # `ActiveRecord::RecordNotFound` so you can rescue that exception as same
+        # as AR's RecordNotFound.
+        # @param [String] key
+        # @return [ActiveRecord::Base] A shard model instance
+        # @raise [ActiveRecord::ShardFor::RecordNotFound]
+        def get!(key)
+          model = get(key)
+          return model if model
+
+          raise ActiveRecord::ShardFor::RecordNotFound
+        end
+
         # Distkey is a column. mixed_gauge hashes that value and determine which
         # shard to store.
         # @param [Symbol] column

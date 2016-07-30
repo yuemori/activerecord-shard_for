@@ -20,4 +20,5 @@ end
 class User < ActiveRecord::Base
   include ActiveRecord::ShardFor::Model
   use_cluster :user, :hash_modulo
+  def_distkey :email
 end
