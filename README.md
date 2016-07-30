@@ -238,9 +238,9 @@ UserReadonly.all_shards do |readonly|
 end
 ```
 
-## Plugin of cluster router
+## Plugin of connection router
 
-If you need to advanced cluster routing, implement router class and register this.
+If you need to advanced connection routing, implement router class and register this.
 
 Reference a interface to [HashModuloRouter](https://github.com/yuemori/activerecord-shard_for/blob/master/lib/activerecord/shard_for/hash_modulo_router.rb) and [ConnectionRouter](https://github.com/yuemori/activerecord-shard_for/blob/master/lib/activerecord/shard_for/connection_router.rb).
 
@@ -258,7 +258,7 @@ Your initializer for activerecord-shard_for might be like this:
 
 ```ruby
 ActiveRecord::ShardFor.configure do |config|
-  config.register_cluster_router(:modulo, SimpleModuloRouter)
+  config.register_connection_router(:modulo, SimpleModuloRouter)
 end
 ```
 

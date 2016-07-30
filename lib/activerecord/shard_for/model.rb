@@ -85,8 +85,8 @@ module ActiveRecord
           raise ActiveRecord::ShardFor::RecordNotFound
         end
 
-        # Distkey is a column. activerecord-shard_for gave to cluster_router that value
-        # and cluster_router determine which shard to store.
+        # Distkey is a column. activerecord-shard_for gave to connection_router that value
+        # and connection_router determine which shard to store.
         # @param [Symbol] column
         def def_distkey(column)
           self.distkey = column.to_sym
