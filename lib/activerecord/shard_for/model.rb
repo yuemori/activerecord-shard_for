@@ -43,7 +43,7 @@ module ActiveRecord
           key = attributes[distkey]
           raise ActiveRecord::ShardFor::MissingDistkeyAttribute unless key || attributes[distkey.to_s]
 
-          @before_put_callback.call(attributes) if @before_put_callback
+          @before_put_callback.call(attributes) if defined?(@before_put_callback) && @before_put_callback
 
           shard_for(key).create!(attributes)
         end
