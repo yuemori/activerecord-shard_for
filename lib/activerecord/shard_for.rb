@@ -29,4 +29,4 @@ module ActiveRecord
   end
 end
 
-ActiveRecord::ShardFor.config.register_cluster_router(:hash_modulo, ActiveRecord::ShardFor::HashModuloRouter)
+ActiveRecord::ShardFor.config.register_connection_router(:hash_modulo, ActiveRecord::ShardFor::HashModuloRouter)

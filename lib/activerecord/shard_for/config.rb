@@ -1,7 +1,7 @@
 module ActiveRecord
   module ShardFor
     class Config
-      attr_reader :cluster_configs, :routers
+      attr_reader :cluster_configs, :connection_routers
 
       def initialize
         @cluster_configs = {}
@@ -27,18 +27,18 @@ module ActiveRecord
         cluster_configs.fetch(cluster_name)
       end
 
-      # Register router for ActiveRecord::ShardFor
+      # Register connection router for ActiveRecord::ShardFor
       # See README.md for example.
       # @param [Symbol] router_name
       # @router_class [Class] router_class
-      def register_cluster_router(router_name, router_class)
-        routers[router_name] = router_class
+      def register_connection_router(router_name, router_class)
+        connection_routers[router_name] = router_class
       end
 
       # @param [Symbol] router_name
       # @return [Class] registered class by [#register_router]
-      def fetch_cluster_router(router_name)
-        routers[router_name]
+      def fetch_connection__router(router_name)
+        connection_routers[router_name]
       end
     end
   end
