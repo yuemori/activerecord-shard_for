@@ -6,7 +6,7 @@ require 'activerecord/shard_for/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'activerecord-shard_for'
-  spec.version       = Activerecord::ShardFor::VERSION
+  spec.version       = ActiveRecord::ShardFor::VERSION
   spec.authors       = ['yuemori']
   spec.email         = ['yuemori@aiming-inc.com']
 
@@ -20,6 +20,8 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
+  spec.add_dependency 'activerecord', '>= 4.1.0'
+  spec.add_dependency 'activesupport', '>= 4.1.0'
   spec.add_development_dependency 'bundler', '~> 1.11'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
@@ -32,4 +34,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'guard-rubocop'
   spec.add_development_dependency 'guard-rspec'
   spec.add_development_dependency 'appraisal'
+  spec.add_development_dependency 'sqlite3'
 end
