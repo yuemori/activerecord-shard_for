@@ -14,6 +14,10 @@ RSpec.describe ActiveRecord::ShardFor::Model do
       include ActiveRecord::ShardFor::Model
       use_cluster :user, :hash_modulo
       def_distkey :email
+
+      before_put do |attrs|
+        attrs[:name] = generate_name unless attrs[:name]
+      end
     end
   end
 
@@ -34,6 +38,13 @@ RSpec.describe ActiveRecord::ShardFor::Model do
         expect { model.put!(user_attributes) }
           .to raise_error(ActiveRecord::ShardFor::MissingDistkeyAttribute)
       end
+    end
+  end
+
+  describe '.before_put' do
+    it 'calls registered hook before execute `put`' do
+      record = model.put!(email: 'xxx@example.com')
+      expect(record.name).to eq('xxx')
     end
   end
 

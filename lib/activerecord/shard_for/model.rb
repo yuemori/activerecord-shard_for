@@ -41,10 +41,28 @@ module ActiveRecord
         def put!(attributes)
           raise '`distkey` is not defined. Use `def_distkey`.' unless distkey
           key = attributes[distkey]
-
           raise ActiveRecord::ShardFor::MissingDistkeyAttribute unless key || attributes[distkey.to_s]
 
+          @before_put_callback.call(attributes) if @before_put_callback
+
           shard_for(key).create!(attributes)
+        end
+
+        # Register hook to assign auto-generated distkey or something.
+        # Sometimes you want to generates distkey value before validation. Since
+        # mixed_gauge generates sub class of your models, AR's callback is not
+        # useless for this usecase, so activerecord-shard_for offers its own callback method.
+        # @example
+        #   class User
+        #     include ActiveRecord::ShardFor::Model
+        #     use_cluster :user
+        #     def_distkey :name
+        #     before_put do |attributes|
+        #       attributes[:name] = generate_name unless attributes[:name]
+        #     end
+        #   end
+        def before_put(&block)
+          @before_put_callback = block
         end
 
         # Returns nil when not found. Except that, is same as `.get!`.
