@@ -4,11 +4,15 @@ This is Sharding Library for ActiveRecord, inspire and import codes from [mixed_
 
 ## Concept
 
+`activerecord-shard_for` have 3 concepts.
+
+- simple
+- small
+- pluggable
+
 ### Simple
 
-This idea principal take over from mixed_gauge, and activerecord-sharding.
-
-activerecord-shard_for needs minimum and simply of settings.
+This idea principal take over from `mixed_gauge`, and `activerecord-sharding`. `activerecord-shard_for` needs minimum and simply of settings.
 
 ### Small
 
@@ -17,11 +21,7 @@ activerecord-shard_for needs minimum and simply of settings.
 
 ### pluggable
 
-Default sharding rule is hash and modulo.
-
-But, activerecord-shard_fo adopt pluggable structer.
-
-This rule can be easy to change!
+Default sharding rule is hash and modulo. But, `activerecord-shard_for` adopt pluggable structer. This rule can be easy to change!
 
 ## Installation
 
