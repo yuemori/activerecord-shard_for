@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe ActiveRecord::ShardFor::ClusterRouter do
+RSpec.describe ActiveRecord::ShardFor::ConnectionRouter do
   let(:router) { described_class.new(cluster_config) }
   let(:cluster_config) { ActiveRecord::ShardFor.config.fetch_cluster_config(:user) }
 

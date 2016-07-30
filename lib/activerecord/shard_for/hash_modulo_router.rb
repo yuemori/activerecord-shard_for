@@ -2,7 +2,7 @@ require 'zlib'
 
 module ActiveRecord
   module ShardFor
-    class HashModuloRouter < ClusterRouter
+    class HashModuloRouter < ConnectionRouter
       # @param [String] key sharding key
       def route(key)
         hash(key) % connection_count

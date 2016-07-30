@@ -1,7 +1,7 @@
 module ActiveRecord
   module ShardFor
     # @abstract Subclass and override [#route] to inplement
-    class ClusterRouter
+    class ConnectionRouter
       attr_reader :cluster_config
 
       # @param [ActiveRecord::ShardFor::ClusterConfig]

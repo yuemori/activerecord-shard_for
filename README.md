@@ -240,12 +240,12 @@ end
 
 If you need to advanced cluster routing, implement router class and register this.
 
-Reference a interface to [HashModuloRouter](https://github.com/yuemori/activerecord-shard_for/blob/master/lib/activerecord/shard_for/hash_modulo_router.rb) and [ClusterRouter](https://github.com/yuemori/activerecord-shard_for/blob/master/lib/activerecord/shard_for/hash_modulo_router.rb).
+Reference a interface to [HashModuloRouter](https://github.com/yuemori/activerecord-shard_for/blob/master/lib/activerecord/shard_for/hash_modulo_router.rb) and [ConnectionRouter](https://github.com/yuemori/activerecord-shard_for/blob/master/lib/activerecord/shard_for/connection_router.rb).
 
 Example, simple modulo router:
 
 ```ruby
-class SimpleModuloRouter < ActiveRecord::ShardFor::ClusterRouter
+class SimpleModuloRouter < ActiveRecord::ShardFor::ConnectionRouter
   def route(key)
     key.to_i % connection_count
   end
