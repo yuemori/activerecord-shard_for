@@ -4,7 +4,9 @@ rvm:
   - 2.2.4
   - 2.3.1
 before_install: gem install bundler -v 1.12.5
-script: CODECLIMATE_REPO_TOKEN=dfc951e2d70b56ee62ffe989eb6286a6f21bf57209ccbd111bd336c372d8d06e bundle exec rspec
+script:
+  - CODECLIMATE_REPO_TOKEN=dfc951e2d70b56ee62ffe989eb6286a6f21bf57209ccbd111bd336c372d8d06e bundle exec rspec
+  - ruby spec/performance_test.rb
 gemfile:
   - gemfiles/ar_4.1.0.gemfile
   - gemfiles/ar_4.1.7.gemfile
