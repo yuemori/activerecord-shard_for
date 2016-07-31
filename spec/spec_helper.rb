@@ -23,22 +23,26 @@ RSpec.configure do |config|
     ActiveRecord::Tasks::DatabaseTasks.db_dir = File.expand_path('..', __FILE__)
     ActiveRecord::Tasks::DatabaseTasks.root = File.expand_path('../..', __FILE__)
     ActiveRecord::Tasks::DatabaseTasks.env = 'test'
-    args = { cluster_name: 'user' }
     back, $stdout, back_e, $stderr = $stdout, StringIO.new, $stderr, StringIO.new
-    ActiveRecord::ShardFor::DatabaseTasks.drop_all_databases(args)
-    ActiveRecord::ShardFor::DatabaseTasks.create_all_databases(args)
-    ActiveRecord::ShardFor::DatabaseTasks.load_schema_all_databases(args)
+    %w(user character).each do |cluster_name|
+      args = { cluster_name: cluster_name }
+      ActiveRecord::ShardFor::DatabaseTasks.drop_all_databases(args)
+      ActiveRecord::ShardFor::DatabaseTasks.create_all_databases(args)
+      ActiveRecord::ShardFor::DatabaseTasks.load_schema_all_databases(args)
+    end
     $stdout, $stderr = back, back_e
   end
 
   config.after(:suite) do
     back, $stdout, back_e, $stderr = $stdout, StringIO.new, $stderr, StringIO.new
     ActiveRecord::ShardFor::DatabaseTasks.drop_all_databases(cluster_name: 'user')
+    ActiveRecord::ShardFor::DatabaseTasks.drop_all_databases(cluster_name: 'character')
     $stdout, $stderr = back, back_e
   end
 
   config.after(:each) do
     User.all_shards.each(&:delete_all)
+    Character.all_shards.each(&:delete_all)
   end
 
   config.expect_with :rspec do |expectations|
