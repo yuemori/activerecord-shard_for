@@ -1,5 +1,9 @@
 # CHANGELOG for activerecord-shard_for
 
+## 0.3.0
+
+- Add using syntax. [#8](https://github.com/yuemori/activerecord-shard_for/pull/8)
+
 ## 0.2.1
 
 - Fix raise MissingDistkeyAttribute before callback. [#6](https://github.com/yuemori/activerecord-shard_for/pull/6)
