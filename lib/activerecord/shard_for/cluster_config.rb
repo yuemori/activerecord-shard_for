@@ -24,13 +24,16 @@ module ActiveRecord
 
       # @param [Object] key
       # @return [Symbol] registered connection name
+      # @raise [KeyError] when key is not registered
       def fetch(key)
-        connection_registry.find do |connection_key, _connection|
+        connection_registry.each do |connection_key, connection|
           case connection_key
-          when Range then connection_key.include?(key)
-          else connection_key == key
+          when Range then return connection if connection_key.include?(key)
+          else return connection if connection_key == key
           end
-        end.second
+        end
+
+        raise KeyError.new, "#{key} is not registerd connection"
       end
     end
   end
