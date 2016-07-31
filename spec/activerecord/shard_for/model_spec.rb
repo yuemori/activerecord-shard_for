@@ -120,4 +120,26 @@ RSpec.describe ActiveRecord::ShardFor::Model do
       expect(User.all_shards_in_parallel).to be_a(ActiveRecord::ShardFor::AllShardsInParallel)
     end
   end
+
+  describe '.using' do
+    context 'when block given' do
+      before { model.using(0) { |model| model.create(user_attributes) } }
+
+      it 'enables to use finder method' do
+        record = model.using(0).find_by(name: 'Alice')
+        expect(record).not_to be_nil
+        expect(record.name).to eq('Alice')
+      end
+    end
+
+    context 'when block given' do
+      before { model.using(0).create(user_attributes) }
+
+      it 'enables to use finder method' do
+        record = model.using(0).find_by(name: 'Alice')
+        expect(record).not_to be_nil
+        expect(record.name).to eq('Alice')
+      end
+    end
+  end
 end
