@@ -189,7 +189,7 @@ You can split read/write by defining AR model class for each connection:
 ```ruby
 class User < ActiveRecord::Base
   include ActiveRecord::ShardFor::Model
-  use_cluster :user
+  use_cluster :user, :hash_modulo
   def_distkey :email
 end
 
@@ -197,7 +197,7 @@ class UserReadonly < ActiveRecord::Base
   self.table_name = 'users'
 
   include ActiveRecord::ShardFor::Model
-  use_cluster :user_readonly
+  use_cluster :user_readonly, :hash_modulo
   def_distkey :email
 end
 
@@ -242,7 +242,34 @@ end
 
 If you need to advanced connection routing, implement router class and register this.
 
-Reference a interface to [HashModuloRouter](https://github.com/yuemori/activerecord-shard_for/blob/master/lib/activerecord/shard_for/hash_modulo_router.rb) and [ConnectionRouter](https://github.com/yuemori/activerecord-shard_for/blob/master/lib/activerecord/shard_for/connection_router.rb).
+### Embeded
+
+Embeded routers:
+
+|name|class|description|
+|:---:|:---:|:---|
+|:hash_modulo|[HashModuloRouter](https://github.com/yuemori/activerecord-shard_for/blob/master/lib/activerecord/shard_for/hash_modulo_router.rb)|use `hash(key) mod connection_count`|
+|:distkey|[DistkeyRouter](https://github.com/yuemori/activerecord-shard_for/blob/master/lib/activerecord/shard_for/distkey_router.rb)|use `distkey` at it is|
+
+Connection Routers specific with cluster in AR model.
+
+```ruby
+class User < ActiveRecord::Base
+  include ActiveRecord::ShardFor::Model
+  use_cluster :user, :hash_modulo # use hash_modulo
+  def_distkey :email
+end
+
+class Character < ActiveRecord::Base
+  include ActiveRecord::ShardFor::Model
+  use_cluster :character, :distkey # use distkey at it is
+  def_distkey :shard_no
+end
+```
+
+### Implement
+
+Reference a interface to [HashModuloRouter](https://github.com/yuemori/activerecord-shard_for/blob/master/lib/activerecord/shard_for/hash_modulo_router.rb), [DistkeyRouter](https://github.com/yuemori/activerecord-shard_for/blob/master/lib/activerecord/shard_for/distkey_router.rb) and [ConnectionRouter](https://github.com/yuemori/activerecord-shard_for/blob/master/lib/activerecord/shard_for/connection_router.rb).
 
 Example, simple modulo router:
 

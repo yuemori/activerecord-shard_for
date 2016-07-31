@@ -35,10 +35,11 @@ module ActiveRecord
         connection_routers[router_name] = router_class
       end
 
-      # @param [Symbol] router_name
+      # @param [Symbol] connection_router_name
       # @return [Class] registered class by [#register_router]
-      def fetch_connection_router(router_name)
-        connection_routers[router_name]
+      # @raise [KeyError] when not registerd router_name given
+      def fetch_connection_router(connection_router_name)
+        connection_routers.fetch(connection_router_name)
       end
     end
   end

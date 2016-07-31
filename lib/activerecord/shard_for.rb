@@ -7,6 +7,7 @@ require 'activerecord/shard_for/model'
 require 'activerecord/shard_for/errors'
 require 'activerecord/shard_for/connection_router'
 require 'activerecord/shard_for/hash_modulo_router'
+require 'activerecord/shard_for/distkey_router'
 require 'activerecord/shard_for/database_tasks'
 require 'activerecord/shard_for/shard_repogitory'
 require 'activerecord/shard_for/all_shards_in_parallel'
@@ -29,4 +30,7 @@ module ActiveRecord
   end
 end
 
-ActiveRecord::ShardFor.config.register_connection_router(:hash_modulo, ActiveRecord::ShardFor::HashModuloRouter)
+ActiveRecord::ShardFor.configure do |config|
+  config.register_connection_router(:hash_modulo, ActiveRecord::ShardFor::HashModuloRouter)
+  config.register_connection_router(:distkey, ActiveRecord::ShardFor::DistkeyRouter)
+end
