@@ -21,6 +21,22 @@ RSpec.describe ActiveRecord::ShardFor::Model do
     end
   end
 
+  let!(:another_model) do
+    Class.new(ActiveRecord::Base) do
+      def self.name
+        'User'
+      end
+
+      include ActiveRecord::ShardFor::Model
+      use_cluster :character, :distkey
+      def_distkey :shard_no
+
+      def shard_no
+        1
+      end
+    end
+  end
+
   let(:user_attributes) { { name: 'Alice', email: 'alice@example.com' } }
 
   describe '.put!' do
@@ -37,6 +53,16 @@ RSpec.describe ActiveRecord::ShardFor::Model do
       it 'raises MissingDistkeyAttribute error' do
         expect { model.put!(user_attributes) }
           .to raise_error(ActiveRecord::ShardFor::MissingDistkeyAttribute)
+      end
+    end
+
+    context 'distkey be specify instance method' do
+      before { another_model.put!(user_attributes) }
+
+      it 'creates new record into shard 1' do
+        record = another_model.using(1).find_by(email: user_attributes[:email])
+        expect(record).to be_a(another_model)
+        expect(record).not_to be_nil
       end
     end
   end
