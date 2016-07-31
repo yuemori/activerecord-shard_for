@@ -40,10 +40,11 @@ module ActiveRecord
         # @raise [ActiveRecord::ShardFor::MissingDistkeyAttribute]
         def put!(attributes)
           raise '`distkey` is not defined. Use `def_distkey`.' unless distkey
-          key = attributes[distkey]
-          raise ActiveRecord::ShardFor::MissingDistkeyAttribute unless key || attributes[distkey.to_s]
 
           @before_put_callback.call(attributes) if defined?(@before_put_callback) && @before_put_callback
+          key = attributes[distkey]
+
+          raise ActiveRecord::ShardFor::MissingDistkeyAttribute unless key || attributes[distkey.to_s]
 
           shard_for(key).create!(attributes)
         end
