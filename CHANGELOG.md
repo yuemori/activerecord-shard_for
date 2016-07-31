@@ -1,5 +1,11 @@
 # CHANGELOG for activerecord-shard_for
 
+## 0.2.1
+
+- Fix raise MissingDistkeyAttribute before callback. [#6](https://github.com/yuemori/activerecord-shard_for/pull/6)
+- Fix rake tasks not load in rails. [#3](https://github.com/yuemori/activerecord-shard_for/pull/3)
+- Modify raise KeyError when not registered connection_key call  [#7](https://github.com/yuemori/activerecord-shard_for/pull/7)
+
 ## 0.2.0
 
 - Enable Range support for cluster key
