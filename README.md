@@ -12,8 +12,6 @@ This is Sharding Library for ActiveRecord, inspire and import codes from [mixed_
 - small
 - pluggable
 
-More imformation and example to see [wiki](https://github.com/yuemori/activerecord-shard_for/wiki).
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -91,6 +89,11 @@ alice.save!
 
 User.all_shards.flat_map {|m| m.find_by(name: 'alice') }.compact
 ```
+
+## Wiki
+
+More imformation and example to see [wiki](https://github.com/yuemori/activerecord-shard_for/wiki)!
+
 
 ## Contributing with ActiveRecord::ShardFor
 
