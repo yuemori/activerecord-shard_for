@@ -50,11 +50,11 @@ module ActiveRecord
         # @raise [ActiveRecord::ShardFor::MissingDistkeyAttribute]
         def put!(attributes)
           raise '`distkey` is not defined. Use `def_distkey`.' unless distkey
-
           @before_put_callback.call(attributes) if defined?(@before_put_callback) && @before_put_callback
-          key = attributes[distkey]
 
-          raise ActiveRecord::ShardFor::MissingDistkeyAttribute unless key || attributes[distkey.to_s]
+          key = fetch_distkey_from_attributes(attributes)
+
+          raise ActiveRecord::ShardFor::MissingDistkeyAttribute unless key
 
           shard_for(key).create!(attributes)
         end
@@ -138,6 +138,20 @@ module ActiveRecord
         #   end
         def switch(role_name, &block)
           replication_mapping.switch(self, role_name, &block)
+        end
+
+        private
+
+        # @param [Hash] attributes
+        # @return [Object or nil] distkey
+        def fetch_distkey_from_attributes(attributes)
+          key = attributes[distkey] || attributes[distkey.to_s]
+          return key if key
+
+          instance = all_shards.first.new(attributes)
+          return unless instance.respond_to?(distkey)
+
+          instance.send(distkey)
         end
       end
     end
