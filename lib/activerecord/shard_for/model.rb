@@ -23,6 +23,16 @@ module ActiveRecord
           self.abstract_class = true
         end
 
+        # Returns a generated model class of included model which specific connection.
+        # @param [Object] shard_key key of a shard connection
+        # @yield [Class] generated model class which key of shard connection
+        # @return [Class] generated model class which key of shard connection
+        def using(shard_key)
+          model = shard_repository.fetch_by_key(shard_key)
+          yield model if block_given?
+          model
+        end
+
         # Returns a generated model class of included model class which has proper
         # connection config for the shard for given key.
         # @param [String] key A value of distkey
