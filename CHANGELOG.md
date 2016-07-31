@@ -1,5 +1,9 @@
 # CHANGELOG for activerecord-shard_for
 
+## 0.4.0
+
+- Distkey support to instance method. [#9](https://github.com/yuemori/activerecord-shard_for/pull/9)
+
 ## 0.3.0
 
 - Add using syntax. [#8](https://github.com/yuemori/activerecord-shard_for/pull/8)
