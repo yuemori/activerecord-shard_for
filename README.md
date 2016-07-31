@@ -110,7 +110,6 @@ User.all_shards_in_parallel.map(&count) #=> 1
 User.parallel.flat_map {|m| m.where(age: 1) }.size #=> 1
 ```
 
-
 Sometimes you want to generates distkey value before validation. Since activerecord-shard_for generates sub class of your models, AR's callback is usesless for this usecase, so activerecord-shard_for offers its own callback method.
 
 ```ruby
@@ -134,6 +133,34 @@ end
 
 access_token = AccessToken.put!
 access_token.token #=> a generated token
+```
+
+If you want to range sharding, `Range` object set to cluster key.
+
+```ruby
+ActiveRecord::ShardFor.configure do |config|
+  config.define_cluster(:user) do |cluster|
+    # unique identifier, connection name
+    cluster.register(0...100, :production_user_001)
+    cluster.register(100...200, :production_user_002)
+    cluster.register(200...300, :production_user_003)
+    cluster.register(300..Float::INFINITY, :production_user_004)
+  end
+end
+
+class User < ActiveRecord::Base
+  include ActiveRecord::ShardFor::Model
+  use_cluster :user, :distkey
+  def_distkey :id
+
+  def self.generate_unique_id
+    # Implement to generate unique id
+  end
+
+  before_put do |attributes|
+    attributes[:id] = generate_unique_id unless attributes[:id]
+  end
+end
 ```
 
 ## Sharding with Replication
@@ -306,6 +333,47 @@ class User < ActiveRecord::Base
   end
 end
 ```
+
+## Advanced
+
+More example, sharding key is String:
+
+```ruby
+ActiveRecord::ShardFor.configure do |config|
+  config.define_cluster(:user) do |cluster|
+    # unique identifier, connection name
+    cluster.register('a'..'z', :production_user_001)
+    cluster.register('A'..'Z', :production_user_002)
+    cluster.register('0'..'9', :production_user_003)
+  end
+end
+
+class InitialStringRouter < ActiveRecord::ShardFor::ConnectionRouter
+  def route(key)
+    key.to_s.first
+  end
+end
+
+ActiveRecord::ShardFor.configure do |config|
+  config.register_connection_router(:initial_string, InitialStringRouter)
+end
+
+class User < ActiveRecord::Base
+  include ActiveRecord::ShardFor::Model
+  use_cluster :user, :initial_string
+  def_distkey :id
+
+  def self.generate_unique_id
+    SecureRandom.uuid
+  end
+
+  before_put do |attributes|
+    attributes[:id] = generate_unique_id unless attributes[:id]
+  end
+end
+
+```
+
 
 ## Contributing with ActiveRecord::ShardFor
 

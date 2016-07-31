@@ -24,7 +24,12 @@ module ActiveRecord
       # @param [Object] key sharding key object for connection
       # @return [Class, nil] A AR model class.
       def fetch_by_key(key)
-        @shards.find { |_, model| model.assigned_key == key }[1]
+        @shards.values.find do |model|
+          case model.assigned_key
+          when Range then model.assigned_key.include?(key)
+          else model.assigned_key == key
+          end
+        end
       end
 
       # @return [Array<Class>]

@@ -10,14 +10,14 @@ RSpec.describe ActiveRecord::ShardFor::DatabaseTasks do
 
   describe '#cluster_names' do
     it 'retuns an Array of cluster name' do
-      expect(described_class.cluster_names).to eq([:user, :user_readonly])
+      expect(described_class.cluster_names).to eq([:user, :user_readonly, :character])
     end
   end
 
   describe '#clusters' do
     it 'retuns an Array of cluster config' do
       result = described_class.clusters
-      expect(result.size).to eq(2)
+      expect(result.size).to eq(3)
       expect(result).to all(a_kind_of(ActiveRecord::ShardFor::ClusterConfig))
     end
   end

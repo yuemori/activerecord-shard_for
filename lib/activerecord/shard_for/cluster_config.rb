@@ -25,7 +25,12 @@ module ActiveRecord
       # @param [Object] key
       # @return [Symbol] registered connection name
       def fetch(key)
-        connection_registry.fetch(key)
+        connection_registry.find do |connection_key, _connection|
+          case connection_key
+          when Range then connection_key.include?(key)
+          else connection_key == key
+          end
+        end.second
       end
     end
   end
