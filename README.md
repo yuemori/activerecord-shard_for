@@ -12,18 +12,7 @@ This is Sharding Library for ActiveRecord, inspire and import codes from [mixed_
 - small
 - pluggable
 
-### Simple
-
-This idea principal take over from `mixed_gauge`, and `activerecord-sharding`. `activerecord-shard_for` needs minimum and simply of settings.
-
-### Small
-
-- Small Dependency: To facilitate version up (important!).
-- Small code: Easy to read code when cause trouble.
-
-### pluggable
-
-Default sharding rule is [modulo with hashed key](https://github.com/yuemori/activerecord-shard_for/blob/master/lib/activerecord/shard_for/hash_modulo_router.rb). But, `activerecord-shard_for` adopt pluggable structer. This rule can be easy to change!
+More imformation and example to see [wiki](https://github.com/yuemori/activerecord-shard_for/wiki).
 
 ## Installation
 
@@ -42,8 +31,6 @@ Or install it yourself as:
     $ gem install activerecord-shard_for
 
 # Getting Started
-
-More example to see [wiki](https://github.com/yuemori/activerecord-shard_for/wiki).
 
 Add additional database connection config to database.yml.
 
