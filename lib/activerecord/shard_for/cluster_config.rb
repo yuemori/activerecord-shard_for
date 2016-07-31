@@ -11,7 +11,7 @@ module ActiveRecord
 
       # @param [Object] key sharding key object for connection
       # @param [Symbol] connection_name
-      # @raise [RuntimeError] when duplicate entry of  key
+      # @raise [RuntimeError] when duplicate entry of key
       def register(key, connection_name)
         raise RuntimeError.new, "#{key} is registered" if connection_registry.key?(key)
         connection_registry[key] = connection_name
