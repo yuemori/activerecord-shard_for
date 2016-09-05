@@ -10,6 +10,8 @@ module ActiveRecord
         class_attribute :shard_repository, instance_writer: false
         class_attribute :replication_mapping, instance_writer: false
         class_attribute :distkey, instance_writer: false
+
+        include ActiveRecord::ShardFor::Patch
       end
 
       module ClassMethods
