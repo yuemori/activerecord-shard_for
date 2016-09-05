@@ -1,5 +1,9 @@
 # CHANGELOG for activerecord-shard_for
 
+## 0.4.1
+
+- Fix defined_enums is empty. [#11](https://github.com/yuemori/activerecord-shard_for/pull/11)
+
 ## 0.4.0
 
 - Distkey support to instance method. [#9](https://github.com/yuemori/activerecord-shard_for/pull/9)
