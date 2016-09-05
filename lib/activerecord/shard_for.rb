@@ -13,6 +13,7 @@ require 'activerecord/shard_for/shard_repogitory'
 require 'activerecord/shard_for/all_shards_in_parallel'
 require 'activerecord/shard_for/replication_mapping'
 require 'activerecord/shard_for/railtie' if defined?(Rails)
+require 'activerecord/shard_for/patch'
 
 module ActiveRecord
   module ShardFor
