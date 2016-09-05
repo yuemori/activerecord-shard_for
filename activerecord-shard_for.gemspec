@@ -32,8 +32,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'pry-inline'
   spec.add_development_dependency 'pry-rescue'
   spec.add_development_dependency 'rubocop'
-  spec.add_development_dependency 'guard-rubocop'
-  spec.add_development_dependency 'guard-rspec'
   spec.add_development_dependency 'appraisal'
   spec.add_development_dependency 'sqlite3'
   spec.add_development_dependency 'rspec-parameterized'
