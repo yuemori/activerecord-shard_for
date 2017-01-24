@@ -1,15 +1,8 @@
 if ENV['CI']
-  require 'codeclimate-test-reporter'
-  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(
-    [
-      CodeClimate::TestReporter::Formatter,
-      SimpleCov::Formatter::HTMLFormatter
-    ]
-  )
+  require 'simplecov'
   SimpleCov.start 'test_frameworks' do
     add_filter '/spec'
   end
-  CodeClimate::TestReporter.start
 end
 
 # frozen_string_literal: true

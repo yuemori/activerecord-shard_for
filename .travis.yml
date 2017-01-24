@@ -12,9 +12,10 @@ before_install:
   - gem update --remote bundler
 cache: bundler
 script:
-- CODECLIMATE_REPO_TOKEN=dfc951e2d70b56ee62ffe989eb6286a6f21bf57209ccbd111bd336c372d8d06e bundle exec rspec
 - bundle exec rubocop
 - bundle exec ruby spec/performance_test.rb
+- bundle exec rspec
+- CODECLIMATE_REPO_TOKEN=dfc951e2d70b56ee62ffe989eb6286a6f21bf57209ccbd111bd336c372d8d06e bundle exec codeclimate-test-reporter
 gemfile:
 - gemfiles/ar_4.1.8.gemfile
 - gemfiles/ar_4.2.gemfile
