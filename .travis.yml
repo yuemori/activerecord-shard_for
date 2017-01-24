@@ -3,18 +3,19 @@ sudo: false
 rvm:
 - 2.2.4
 - 2.3.1
+- 2.4.0
 branches:
   only:
     - master
-before_install: gem install bundler -v 1.12.5
+before_install:
+  - gem update --system 
+  - gem update --remote bundler
 cache: bundler
 script:
 - CODECLIMATE_REPO_TOKEN=dfc951e2d70b56ee62ffe989eb6286a6f21bf57209ccbd111bd336c372d8d06e bundle exec rspec
 - bundle exec rubocop
 - bundle exec ruby spec/performance_test.rb
 gemfile:
-- gemfiles/ar_4.1.0.gemfile
-- gemfiles/ar_4.1.7.gemfile
 - gemfiles/ar_4.1.8.gemfile
 - gemfiles/ar_4.2.gemfile
 - gemfiles/ar_5.0.gemfile
@@ -27,6 +28,8 @@ matrix:
     gemfile: gemfiles/rails_edge.gemfile
   - rvm: 2.1.9
     gemfile: gemfiles/ar_5.0.gemfile
+  - rvm: 2.4.0
+    gemfile: gemfiles/ar_4.1.8.gemfile
 notifications:
   slack:
     secure: S1W/Lw+dH3wb8FfkMIWPZmr6M4Q6S2WMkSlanpKva1HM7K5QL7hXdmUl2yBUxJE26BHSsb1ScozMEzadyda2+i/W34UvZ7LXgKeHkUKEdjy/AmsSJPK1ZjMfgnv10tVgbEIusNb4bF/sSuChdZKK3ILwOlqIPDlQNdMwF1xRA2xt5J7tb26UgyIzoCI4P3bJYMULWsEkk+UwHiJH0YO9ulkTZI/j0N+hLXQLJTZPjmKtMk/tE0NbBmFVL4md89hUcR5gKTGGrNzEMJ58K+zqeDG/DubkcIbA5ZuqKv+oE5m0pDODZExxnC+oeENTvq/VfYwOfD0pTDrBNYjj+Bm3YiyGDzQAgov9XPDG8g/fKEs/LNAT79UZXkZlFO99Yn/vrYH9o5DKpOE9smENUXylb55MgLTUiYe17CTp7pB3trbJl3wwIbLjSmTjAdSUNgPv8qDP4uk3K4U32mknXCDDkU9EI7f6F731ocdoxsGarEBcPcgjs73Y84iwDteQp847Gigtgo4Y4TCWH657uzLolR2O8NSw+vWT0VNI9qtR5PZD7iVYtSp1qHtPAKowCztodewY2Nu+Ds9Z95udf4GPUkFg/SNEJPTPrQFLiiJZ8UYP8NJEuA+IP1tc2zG3zU/ADrjenRC1ZiupQG7OMH82y11408U6PcHFSlF+7NuDkac=

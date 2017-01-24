@@ -27,3 +27,7 @@ Style/ParallelAssignment:
 
 Style/Alias:
   EnforcedStyle: prefer_alias_method
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*.rb'
