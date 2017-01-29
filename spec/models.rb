@@ -78,8 +78,24 @@ end
 
 class CPU < Product
   include ActiveRecord::ShardFor::STI
+
+  shard_eval do
+    validates :cpu_frequency, presence: true
+
+    def frequency
+      cpu_frequency.to_s + 'GHz'
+    end
+  end
 end
 
 class Memory < Product
   include ActiveRecord::ShardFor::STI
+
+  shard_eval do
+    validates :memory_capacity, presence: true
+
+    def capacity
+      memory_capacity.to_s + 'GB'
+    end
+  end
 end
