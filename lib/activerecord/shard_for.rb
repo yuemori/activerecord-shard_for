@@ -1,6 +1,7 @@
 require 'active_record'
 require 'expeditor'
 require 'activerecord/shard_for/version'
+require 'activerecord/shard_for/abstract_shard_repository'
 require 'activerecord/shard_for/config'
 require 'activerecord/shard_for/cluster_config'
 require 'activerecord/shard_for/model'
@@ -14,6 +15,8 @@ require 'activerecord/shard_for/all_shards_in_parallel'
 require 'activerecord/shard_for/replication_mapping'
 require 'activerecord/shard_for/railtie' if defined?(Rails)
 require 'activerecord/shard_for/patch'
+require 'activerecord/shard_for/sti'
+require 'activerecord/shard_for/sti_shard_repository'
 
 module ActiveRecord
   module ShardFor

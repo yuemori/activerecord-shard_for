@@ -44,6 +44,13 @@ module ActiveRecord
           shard_repository.fetch(connection_name)
         end
 
+        # Evaluate block in all shard instances.
+        def shard_eval(&block)
+          all_shards.each do |shard|
+            shard.instance_eval(&block)
+          end
+        end
+
         # Create new record with given attributes in proper shard for given key.
         # When distkey value is empty, raises ActiveRecord::ShardFor::MissingDistkeyAttribute
         # error.

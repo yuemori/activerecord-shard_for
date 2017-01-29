@@ -1,5 +1,9 @@
 # CHANGELOG for activerecord-shard_for
 
+## master
+
+- Support Single Table Inheritance.
+
 ## 0.4.1
 
 - Fix defined_enums is empty. [#11](https://github.com/yuemori/activerecord-shard_for/pull/11)

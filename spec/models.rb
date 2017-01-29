@@ -11,6 +11,10 @@ ActiveRecord::Base.configurations = {
   'test_character_001' => base.merge('database' => 'character_001.sqlite3'),
   'test_character_002' => base.merge('database' => 'character_002.sqlite3'),
   'test_character_003' => base.merge('database' => 'character_003.sqlite3'),
+  'test_product_001' => base.merge('database' => 'product_001.sqlite3'),
+  'test_product_002' => base.merge('database' => 'product_002.sqlite3'),
+  'test_product_003' => base.merge('database' => 'product_003.sqlite3'),
+  'test_product_004' => base.merge('database' => 'product_004.sqlite3'),
   'test' => base.merge('database' => 'default.sqlite3')
 }
 ActiveRecord::Base.establish_connection(:test)
@@ -35,6 +39,13 @@ ActiveRecord::ShardFor.configure do |config|
     cluster.register(100...200, :test_character_002)
     cluster.register(200..Float::INFINITY, :test_character_003)
   end
+
+  config.define_cluster(:product) do |cluster|
+    cluster.register(0, :test_product_001)
+    cluster.register(1, :test_product_002)
+    cluster.register(2, :test_product_003)
+    cluster.register(3, :test_product_004)
+  end
 end
 
 class User < ActiveRecord::Base
@@ -56,4 +67,19 @@ class Character < ActiveRecord::Base
   include ActiveRecord::ShardFor::Model
   use_cluster :character, :distkey
   def_distkey :shard_no
+end
+
+class Product < ActiveRecord::Base
+  include ActiveRecord::ShardFor::Model
+
+  use_cluster :product, :hash_modulo
+  def_distkey :name
+end
+
+class CPU < Product
+  include ActiveRecord::ShardFor::STI
+end
+
+class Memory < Product
+  include ActiveRecord::ShardFor::STI
 end

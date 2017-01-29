@@ -13,4 +13,11 @@ ActiveRecord::Schema.define(version: 0) do
     t.datetime 'created_at',   null: false
     t.datetime 'updated_at',   null: false
   end
+
+  create_table 'products', force: :cascade do |t|
+    t.string   'name',       null: false
+    t.string   'type',       null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+  end
 end
