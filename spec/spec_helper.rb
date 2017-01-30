@@ -17,7 +17,7 @@ RSpec.configure do |config|
     ActiveRecord::Tasks::DatabaseTasks.root = File.expand_path('../..', __FILE__)
     ActiveRecord::Tasks::DatabaseTasks.env = 'test'
     back, $stdout, back_e, $stderr = $stdout, StringIO.new, $stderr, StringIO.new
-    %w(user character).each do |cluster_name|
+    %w(user character product).each do |cluster_name|
       args = { cluster_name: cluster_name }
       ActiveRecord::ShardFor::DatabaseTasks.drop_all_databases(args)
       ActiveRecord::ShardFor::DatabaseTasks.create_all_databases(args)
@@ -30,12 +30,14 @@ RSpec.configure do |config|
     back, $stdout, back_e, $stderr = $stdout, StringIO.new, $stderr, StringIO.new
     ActiveRecord::ShardFor::DatabaseTasks.drop_all_databases(cluster_name: 'user')
     ActiveRecord::ShardFor::DatabaseTasks.drop_all_databases(cluster_name: 'character')
+    ActiveRecord::ShardFor::DatabaseTasks.drop_all_databases(cluster_name: 'product')
     $stdout, $stderr = back, back_e
   end
 
   config.after(:each) do
     User.all_shards.each(&:delete_all)
     Character.all_shards.each(&:delete_all)
+    Product.all_shards.each(&:delete_all)
   end
 
   config.expect_with :rspec do |expectations|

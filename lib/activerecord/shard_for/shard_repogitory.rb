@@ -1,6 +1,6 @@
 module ActiveRecord
   module ShardFor
-    class ShardRepogitory
+    class ShardRepogitory < AbstractShardRepository
       attr_reader :base_class
 
       # @param [ClusterConfig] cluster_config
@@ -8,33 +8,11 @@ module ActiveRecord
       def initialize(cluster_config, base_class)
         @base_class = base_class
 
-        shards = cluster_config.connection_registry.map do |key, connection_name|
-          [connection_name, generate_model_for_shard(connection_name, key)]
+        @shards = cluster_config.connection_registry.each_with_object({}) do |(key, connection_name), hash|
+          model = generate_model_for_shard(connection_name, key)
+          base_class.const_set(:"#{generate_class_name(connection_name)}", model)
+          hash[connection_name] = model
         end
-
-        @shards = Hash[shards]
-      end
-
-      # @param [Symbol] connection_name
-      # @return [Class] A model class for this shard
-      def fetch(connection_name)
-        @shards.fetch(connection_name)
-      end
-
-      # @param [Object] key sharding key object for connection
-      # @return [Class, nil] A AR model class.
-      def fetch_by_key(key)
-        @shards.values.find do |model|
-          case model.assigned_key
-          when Range then model.assigned_key.include?(key)
-          else model.assigned_key == key
-          end
-        end
-      end
-
-      # @return [Array<Class>]
-      def all
-        @shards.values
       end
 
       private
@@ -62,12 +40,6 @@ module ActiveRecord
 
         model.class_eval { establish_connection(connection_name) }
         model
-      end
-
-      # @param [Symbol] connection_name
-      # @return [String]
-      def generate_class_name(connection_name)
-        "ShardFor#{connection_name.to_s.tr('-', '_').classify}"
       end
     end
   end
