@@ -1,8 +1,8 @@
 # CHANGELOG for activerecord-shard_for
 
-## master
+## 0.5.0
 
-- Support Single Table Inheritance.
+- Support Single Table Inheritance. [#14](https://github.com/yuemori/activerecord-shard_for/pull/14)
 
 ## 0.4.1
 
