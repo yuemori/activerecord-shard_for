@@ -5,6 +5,7 @@ AllCops:
     - Guardfile
     - lib/activerecord/tasks/activerecord_shard_for.rake
     - gemfiles/**/*
+    - vendor/bundle/**/*
   DisplayCopNames: true
 
 Style/FrozenStringLiteralComment:
