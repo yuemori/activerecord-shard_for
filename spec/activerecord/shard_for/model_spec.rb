@@ -168,4 +168,32 @@ RSpec.describe ActiveRecord::ShardFor::Model do
       end
     end
   end
+
+  describe 'establish_connection to same shard' do
+    it 'uses same connection' do
+      aggregate_failures do
+        (0..3).to_a.each do |n|
+          connections = [
+            Account.using(n).connection,
+            Character.using(n).connection,
+            Item.using(n).connection
+          ]
+          expect(connections).to all be_present
+          expect(connections.uniq.length).to eq 1
+        end
+      end
+    end
+
+    it 'effects transaction' do
+      aggregate_failures do
+        (0..3).to_a.each do |n|
+          Account.using(n).transaction do
+            Item.using(n).create!(name: 'test item')
+            raise ActiveRecord::Rollback
+          end
+          expect(Item.using(n).count).to be_zero
+        end
+      end
+    end
+  end
 end
