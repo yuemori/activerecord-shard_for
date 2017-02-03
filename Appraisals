@@ -1,13 +1,5 @@
 # vim: set ft=ruby
 
-appraise 'ar-4.1.0' do
-  gem 'activerecord', '4.1.0'
-end
-
-appraise 'ar-4.1.7' do
-  gem 'activerecord', '4.1.7'
-end
-
 appraise 'ar-4.1.8' do
   gem 'activerecord', '4.1.8'
 end
