@@ -10,7 +10,7 @@ module ActiveRecord
 
         @shards = cluster_config.connection_registry.each_with_object({}) do |(key, connection_name), hash|
           model = generate_model_for_shard(connection_name, key)
-          base_class.const_set(:"#{generate_class_name(connection_name)}", model)
+          base_class.const_set(:"#{generate_shard_name(connection_name)}", model)
           hash[connection_name] = model
         end
       end
@@ -22,7 +22,7 @@ module ActiveRecord
       # @return [Class] A sub class of given AR model.
       #   A sub class has connection setting for specific shard.
       def generate_model_for_shard(connection_name, key)
-        class_name = generate_class_name(connection_name)
+        class_name = generate_shard_name(connection_name)
 
         model = Class.new(base_class) do
           self.table_name = base_class.table_name

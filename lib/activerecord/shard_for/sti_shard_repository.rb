@@ -10,7 +10,7 @@ module ActiveRecord
 
         @shards = base_shards.each_with_object({}) do |(connection_name, base_model), hash|
           model = generate_model_from_shard(connection_name, base_model)
-          inherited_class.const_set(:"#{generate_class_name(connection_name)}", model)
+          inherited_class.const_set(:"#{generate_shard_name(connection_name)}", model)
           hash[connection_name] = model
         end
       end
@@ -21,7 +21,7 @@ module ActiveRecord
       # @param [Class] A class of shard model.
       # @return [Class] A sub class of given model.
       def generate_model_from_shard(connection_name, base_model)
-        class_name = generate_class_name(connection_name)
+        class_name = generate_shard_name(connection_name)
         module_name = inherited_class.name
 
         model = Class.new(base_model) do

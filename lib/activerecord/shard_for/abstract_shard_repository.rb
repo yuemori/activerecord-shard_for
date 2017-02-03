@@ -29,7 +29,7 @@ module ActiveRecord
 
       # @param [Symbol] connection_name
       # @return [String]
-      def generate_class_name(connection_name)
+      def generate_shard_name(connection_name)
         "ShardFor#{connection_name.to_s.tr('-', '_').classify}"
       end
     end
