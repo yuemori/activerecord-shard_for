@@ -21,7 +21,7 @@ module ActiveRecord
       # @param [Class] A class of shard model.
       # @return [Class] A sub class of given model.
       def generate_model_from_shard(connection_name, base_model)
-        class_name = generate_shard_name(connection_name)
+        shard_name = generate_shard_name(connection_name)
         module_name = inherited_class.name
 
         model = Class.new(base_model) do
@@ -29,7 +29,7 @@ module ActiveRecord
 
           module_eval <<-RUBY, __FILE__, __LINE__ + 1
             def self.name
-              "#{module_name}::#{class_name}"
+              "#{module_name}::#{shard_name}"
             end
           RUBY
         end
