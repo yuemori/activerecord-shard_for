@@ -21,7 +21,7 @@ module ActiveRecord
           cluster_config = ActiveRecord::ShardFor.config.fetch_cluster_config(name)
           connection_router_class = ActiveRecord::ShardFor.config.fetch_connection_router(router_name)
           self.connection_router = connection_router_class.new(cluster_config)
-          self.shard_repository = ActiveRecord::ShardFor::ShardRepogitory.new(cluster_config, self)
+          self.shard_repository = ActiveRecord::ShardFor::ShardRepository.new(cluster_config, self)
           self.abstract_class = true
         end
 

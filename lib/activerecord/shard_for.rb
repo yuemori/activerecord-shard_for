@@ -10,7 +10,7 @@ require 'activerecord/shard_for/connection_router'
 require 'activerecord/shard_for/hash_modulo_router'
 require 'activerecord/shard_for/distkey_router'
 require 'activerecord/shard_for/database_tasks'
-require 'activerecord/shard_for/shard_repogitory'
+require 'activerecord/shard_for/shard_repository'
 require 'activerecord/shard_for/all_shards_in_parallel'
 require 'activerecord/shard_for/replication_mapping'
 require 'activerecord/shard_for/railtie' if defined?(Rails)
