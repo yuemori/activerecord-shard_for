@@ -1,6 +1,6 @@
 module ActiveRecord
   module ShardFor
-    class ShardRepogitory < AbstractShardRepository
+    class ShardRepository < AbstractShardRepository
       attr_reader :base_class
 
       # @param [ClusterConfig] cluster_config
