@@ -57,8 +57,8 @@ module ActiveRecord
               "#{base_class.name}::#{class_name}"
             end
 
-            def self.connection
-              ::#{class_name}.connection
+            def self.retrieve_connection
+              ::#{class_name}.retrieve_connection
             end
           RUBY
         end
