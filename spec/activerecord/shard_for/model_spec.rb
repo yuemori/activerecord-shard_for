@@ -173,13 +173,17 @@ RSpec.describe ActiveRecord::ShardFor::Model do
     it 'uses same connection' do
       aggregate_failures do
         (0..3).to_a.each do |n|
+          publisher_class = ShardForTestCharacter001 # eq Account.using(n).name.demodulize
+
           connections = [
             Account.using(n).connection,
             Character.using(n).connection,
-            Item.using(n).connection
+            Item.using(n).connection,
+            publisher_class.connection
           ]
           expect(connections).to all be_present
           expect(connections.uniq.length).to eq 1
+          expect(publisher_class.connection).not_to eq Product.using(n).connection
         end
       end
     end
