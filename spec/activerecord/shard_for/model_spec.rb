@@ -170,6 +170,10 @@ RSpec.describe ActiveRecord::ShardFor::Model do
   end
 
   describe 'establish_connection to same shard' do
+    before do
+      ActiveRecord::Base.clear_all_connections!
+    end
+
     it 'uses same connection' do
       aggregate_failures do
         (0..3).to_a.each do |n|
@@ -182,7 +186,16 @@ RSpec.describe ActiveRecord::ShardFor::Model do
             publisher_class.connection
           ]
           expect(connections).to all be_present
+
+          connection_pools = [
+            Account.using(n).connection_pool,
+            Character.using(n).connection_pool,
+            Item.using(n).connection_pool,
+            publisher_class.connection_pool
+          ]
+
           expect(connections.uniq.length).to eq 1
+          expect(connection_pools.uniq.length).to eq 1
           expect(publisher_class.connection).not_to eq Product.using(n).connection
         end
       end
