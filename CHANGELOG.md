@@ -1,5 +1,10 @@
 # CHANGELOG for activerecord-shard_for
 
+## master
+
+- Support same connection to connect for same shard.
+- Drop rails4 support
+
 ## 0.5.0
 
 - Support Single Table Inheritance. [#14](https://github.com/yuemori/activerecord-shard_for/pull/14)
