@@ -63,10 +63,22 @@ class UserReadonly < ActiveRecord::Base
   replicates_with master: :User
 end
 
+class Account < ActiveRecord::Base
+  include ActiveRecord::ShardFor::Model
+  use_cluster :character, :hash_modulo
+  def_distkey :name
+end
+
 class Character < ActiveRecord::Base
   include ActiveRecord::ShardFor::Model
   use_cluster :character, :distkey
   def_distkey :shard_no
+end
+
+class Item < ActiveRecord::Base
+  include ActiveRecord::ShardFor::Model
+  use_cluster :character, :hash_modulo
+  def_distkey :name
 end
 
 class Product < ActiveRecord::Base

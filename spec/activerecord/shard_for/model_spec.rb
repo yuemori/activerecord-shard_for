@@ -168,4 +168,49 @@ RSpec.describe ActiveRecord::ShardFor::Model do
       end
     end
   end
+
+  describe 'establish_connection to same shard' do
+    before do
+      ActiveRecord::Base.clear_all_connections!
+    end
+
+    it 'uses same connection' do
+      aggregate_failures do
+        (0..3).to_a.each do |n|
+          publisher_class = ShardForTestCharacter001 # eq Account.using(n).name.demodulize
+
+          connections = [
+            Account.using(n).connection,
+            Character.using(n).connection,
+            Item.using(n).connection,
+            publisher_class.connection
+          ]
+          expect(connections).to all be_present
+
+          connection_pools = [
+            Account.using(n).connection_pool,
+            Character.using(n).connection_pool,
+            Item.using(n).connection_pool,
+            publisher_class.connection_pool
+          ]
+
+          expect(connections.uniq.length).to eq 1
+          expect(connection_pools.uniq.length).to eq 1
+          expect(publisher_class.connection).not_to eq Product.using(n).connection
+        end
+      end
+    end
+
+    it 'effects transaction' do
+      aggregate_failures do
+        (0..3).to_a.each do |n|
+          Account.using(n).transaction do
+            Item.using(n).create!(name: 'test item')
+            raise ActiveRecord::Rollback
+          end
+          expect(Item.using(n).count).to be_zero
+        end
+      end
+    end
+  end
 end
