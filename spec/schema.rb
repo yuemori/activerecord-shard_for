@@ -7,9 +7,22 @@ ActiveRecord::Schema.define(version: 0) do
     t.datetime 'updated_at',   null: false
   end
 
+  create_table 'accounts', force: :cascade do |t|
+    t.string   'name',         null: false
+    t.string   'password',     null: false
+    t.datetime 'created_at',   null: false
+    t.datetime 'updated_at',   null: false
+  end
+
   create_table 'characters', force: :cascade do |t|
     t.string   'name',         null: false
     t.integer  'shard_no'
+    t.datetime 'created_at',   null: false
+    t.datetime 'updated_at',   null: false
+  end
+
+  create_table 'items', force: :cascade do |t|
+    t.string   'name',         null: false
     t.datetime 'created_at',   null: false
     t.datetime 'updated_at',   null: false
   end
