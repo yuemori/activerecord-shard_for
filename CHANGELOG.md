@@ -1,8 +1,8 @@
 # CHANGELOG for activerecord-shard_for
 
-## master
+## 0.6.0
 
-- Support same connection to connect for same shard.
+- Support same connection to connect for same shard. [#15](https://github.com/yuemori/activerecord-shard_for/pull/15)
 - Drop rails4 support
 
 ## 0.5.0
