@@ -130,7 +130,7 @@ module ActiveRecord
           return cluster_name if cluster_name
 
           $stderr.puts <<-MSG
-Missing cluster_name. Find cluster_name via `rake activerecord:shard_for:info` then call `rake "activerecord:shard_for:#{name}[$cluster_name]"`.
+  Missing cluster_name. Find cluster_name via `rake activerecord:shard_for:info` then call `rake "activerecord:shard_for:#{name}[$cluster_name]"`.
           MSG
           exit_with_error
         end

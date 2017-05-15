@@ -10,7 +10,7 @@ RSpec.describe ActiveRecord::ShardFor::DatabaseTasks do
 
   describe '#cluster_names' do
     it 'retuns an Array of cluster name' do
-      expect(described_class.cluster_names).to eq([:user, :user_readonly, :character, :product])
+      expect(described_class.cluster_names).to eq(%i(user user_readonly character product))
     end
   end
 

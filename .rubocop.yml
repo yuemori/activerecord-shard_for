@@ -8,6 +8,16 @@ AllCops:
     - vendor/bundle/**/*
   DisplayCopNames: true
 
+Style/PercentLiteralDelimiters:
+  Enabled: false
+
+Style/EmptyLineAfterMagicComment:
+  Enabled: false
+
+Style/FileName:
+  Exclude:
+    - Appraisals
+
 Style/FrozenStringLiteralComment:
   Enabled: false
 
