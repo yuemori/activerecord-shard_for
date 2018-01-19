@@ -76,7 +76,7 @@ class User < ActiveRecord::Base
 end
 ```
 
-Use `.get` to retrive single record which is connected to proper database node. Use .put! to create new record to proper database node.
+Use `.get` to retrieve single record which is connected to proper database node. Use .put! to create new record to proper database node.
 
 `.all_shards` returns each model class which is connected to proper database node. You can query with these models and aggregate result.
 
