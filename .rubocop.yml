@@ -8,15 +8,17 @@ AllCops:
     - vendor/bundle/**/*
   DisplayCopNames: true
 
+Style/StderrPuts:
+  Enabled: false
+
+Naming/UncommunicativeMethodParamName:
+  Enabled: false
+
+Style/ExpandPathArguments:
+  Enabled: false
+
 Style/PercentLiteralDelimiters:
   Enabled: false
-
-Style/EmptyLineAfterMagicComment:
-  Enabled: false
-
-Style/FileName:
-  Exclude:
-    - Appraisals
 
 Style/FrozenStringLiteralComment:
   Enabled: false
@@ -29,6 +31,13 @@ Metrics/LineLength:
 
 Style/EmptyCaseCondition:
   Enabled: false
+
+Layout/EmptyLineAfterMagicComment:
+  Enabled: false
+
+Layout/FileName:
+  Exclude:
+    - Appraisals
 
 Metrics/MethodLength:
   Max: 15
