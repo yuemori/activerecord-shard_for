@@ -4,8 +4,10 @@ module ActiveRecord
   module ShardFor
     class AllShardsInParallel
       # @param [Array<Class>] An array of shard model class
-      def initialize(shards)
+      # @param [Expeditor::Service] service
+      def initialize(shards, service:)
         @shards = shards
+        @service = service
       end
 
       # @yield [Class] A shard model class
@@ -16,7 +18,7 @@ module ActiveRecord
         return [] unless block_given?
 
         commands = @shards.map do |m|
-          Expeditor::Command.new { m.connection_pool.with_connection { yield m } }
+          Expeditor::Command.new(service: @service) { m.connection_pool.with_connection { yield m } }
         end
         commands.each(&:start)
         commands.map(&:get)

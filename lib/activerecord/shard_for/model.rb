@@ -10,6 +10,7 @@ module ActiveRecord
         class_attribute :shard_repository, instance_writer: false
         class_attribute :replication_mapping, instance_writer: false
         class_attribute :distkey, instance_writer: false
+        class_attribute :service, instance_writer: false
 
         include ActiveRecord::ShardFor::Patch
       end
@@ -17,11 +18,20 @@ module ActiveRecord
       module ClassMethods
         # The cluster config must be defined before `use_cluster`
         # @param [Symbol] name A cluster name which is set by ActiveRecord::ShardFor.configure
-        def use_cluster(name, router_name)
+        def use_cluster(name, router_name, thread_pool_size_base: 3)
           cluster_config = ActiveRecord::ShardFor.config.fetch_cluster_config(name)
           connection_router_class = ActiveRecord::ShardFor.config.fetch_connection_router(router_name)
           self.connection_router = connection_router_class.new(cluster_config)
           self.shard_repository = ActiveRecord::ShardFor::ShardRepository.new(cluster_config, self)
+          thread_size = (shard_repository.all.size * thread_pool_size_base)
+          self.service = Expeditor::Service.new(
+            executor: Concurrent::ThreadPoolExecutor.new(
+              min_threads: thread_size,
+              max_threads: thread_size,
+              max_queue: shard_repository.all.size,
+              fallback_policy: :abort
+            )
+          )
           self.abstract_class = true
         end
 
@@ -124,7 +134,7 @@ module ActiveRecord
         # @example
         #   User.all_shards_in_parallel.map {|m| m.where.find_by(name: 'Alice') }.compact
         def all_shards_in_parallel
-          AllShardsInParallel.new(all_shards)
+          AllShardsInParallel.new(all_shards, service: service)
         end
         alias_method :parallel, :all_shards_in_parallel
 
