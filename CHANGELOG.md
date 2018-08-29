@@ -1,5 +1,11 @@
 # CHANGELOG for activerecord-shard_for
 
+## 0.6.1
+
+- Allow settings `thread_pool_base_size` and command executor. [#18](https://github.com/yuemori/activerecord-shard_for/pull/18)
+- Bump up supporeted rails versions. [#19](https://github.com/yuemori/activerecord-shard_for/pull/19)
+  - Add rails 5.2
+
 ## 0.6.0
 
 - Support same connection to connect for same shard. [#15](https://github.com/yuemori/activerecord-shard_for/pull/15)
