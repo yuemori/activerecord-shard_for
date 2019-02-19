@@ -1,5 +1,13 @@
 # CHANGELOG for activerecord-shard_for
 
+## 0.7.0
+
+- Fix establish_connection is called on class loading. [#20](https://github.com/yuemori/activerecord-shard_for/pull/20)
+- Bump up supporeted rails versions. [#21](https://github.com/yuemori/activerecord-shard_for/pull/21)
+  - Add rails 6.0.0.beta1(experimental)
+- Drop ruby 2.2.x support
+- Fix set_callback raises NoMethodError when already defined callback. [#22](https://github.com/yuemori/activerecord-shard_for/pull/22)
+
 ## 0.6.1
 
 - Allow settings `thread_pool_base_size` and command executor. [#18](https://github.com/yuemori/activerecord-shard_for/pull/18)
