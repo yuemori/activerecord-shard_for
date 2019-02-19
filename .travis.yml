@@ -1,7 +1,6 @@
 language: ruby
 sudo: false
 rvm:
-- 2.2.10
 - 2.3.8
 - 2.4.5
 - 2.5.3
@@ -30,12 +29,8 @@ matrix:
   - gemfile: gemfiles/rails_edge.gemfile
   # rails_edge required ruby version over 2.4.1
   exclude:
-  - rvm: 2.2.10
-    gemfile: gemfiles/rails_edge.gemfile
   - rvm: 2.3.8
     gemfile: gemfiles/rails_edge.gemfile
-  - rvm: 2.2.10
-    gemfile: gemfiles/ar_6.0.gemfile
   - rvm: 2.3.8
     gemfile: gemfiles/ar_6.0.gemfile
 notifications:
