@@ -69,6 +69,7 @@ module ActiveRecord
         # @raise [ActiveRecord::ShardFor::MissingDistkeyAttribute]
         def put!(attributes)
           raise '`distkey` is not defined. Use `def_distkey`.' unless distkey
+
           @before_put_callback.call(attributes) if defined?(@before_put_callback) && @before_put_callback
 
           key = fetch_distkey_from_attributes(attributes)
