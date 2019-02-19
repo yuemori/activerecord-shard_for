@@ -20,6 +20,9 @@ RSpec.describe ActiveRecord::ShardFor::Patch do
       before_put do |attrs|
         attrs[:name] = generate_name unless attrs[:name]
       end
+
+      define_callbacks :sample_callback
+      set_callback :sample_callback, :before, :hoge
     end
   end
 
@@ -27,5 +30,13 @@ RSpec.describe ActiveRecord::ShardFor::Patch do
     subject { model.defined_enums }
 
     it { is_expected.not_to be_empty }
+  end
+
+  describe 'callbacks' do
+    before do
+      model.define_callbacks :sample_callback2
+    end
+
+    it { expect { model.set_callback :sample_callback2, :before, :email }.not_to raise_error }
   end
 end
