@@ -40,6 +40,12 @@ ActiveRecord::ShardFor.configure do |config|
     cluster.register(200..Float::INFINITY, :test_character_003)
   end
 
+  config.define_cluster(:character_another) do |cluster|
+    cluster.register(0, :test_character_001)
+    cluster.register(1, :test_character_002)
+    cluster.register(2, :test_character_003)
+  end
+
   config.define_cluster(:product) do |cluster|
     cluster.register(0, :test_product_001)
     cluster.register(1, :test_product_002)
@@ -70,6 +76,12 @@ class Account < ActiveRecord::Base
 end
 
 class Character < ActiveRecord::Base
+  include ActiveRecord::ShardFor::Model
+  use_cluster :character, :distkey
+  def_distkey :shard_no
+end
+
+class CharacterAnother < ActiveRecord::Base
   include ActiveRecord::ShardFor::Model
   use_cluster :character, :distkey
   def_distkey :shard_no

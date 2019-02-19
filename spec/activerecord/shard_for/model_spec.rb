@@ -39,6 +39,10 @@ RSpec.describe ActiveRecord::ShardFor::Model do
 
   let(:user_attributes) { { name: 'Alice', email: 'alice@example.com' } }
 
+  let(:cluster_config) { ActiveRecord::ShardFor.config.fetch_cluster_config(:user) }
+
+  it { expect(ActiveSupport::DescendantsTracker.descendants(model).count).to eq cluster_config.connections.count }
+
   describe '.put!' do
     it 'creates new record into proper node' do
       record = model.put!(user_attributes)
