@@ -1,9 +1,10 @@
 language: ruby
 sudo: false
 rvm:
-- 2.2.7
-- 2.3.4
-- 2.4.1
+- 2.3.8
+- 2.4.5
+- 2.5.3
+- 2.6.1
 branches:
   only:
     - master
@@ -20,16 +21,22 @@ gemfile:
 - gemfiles/ar_5.0.gemfile
 - gemfiles/ar_5.1.gemfile
 - gemfiles/ar_5.2.gemfile
+- gemfiles/ar_6.0.gemfile
 - gemfiles/rails_edge.gemfile
 matrix:
   allow_failures:
+  - gemfile: gemfiles/ar_6.0.gemfile
   - gemfile: gemfiles/rails_edge.gemfile
-  # rails_edge required ruby version over 2.4.1
+  # rails_edge required ruby version over 2.5.0
   exclude:
-  - rvm: 2.2.7
+  - rvm: 2.3.8
     gemfile: gemfiles/rails_edge.gemfile
-  - rvm: 2.3.4
+  - rvm: 2.4.5
     gemfile: gemfiles/rails_edge.gemfile
+  - rvm: 2.3.8
+    gemfile: gemfiles/ar_6.0.gemfile
+  - rvm: 2.4.5
+    gemfile: gemfiles/ar_6.0.gemfile
 notifications:
   slack:
     secure: S1W/Lw+dH3wb8FfkMIWPZmr6M4Q6S2WMkSlanpKva1HM7K5QL7hXdmUl2yBUxJE26BHSsb1ScozMEzadyda2+i/W34UvZ7LXgKeHkUKEdjy/AmsSJPK1ZjMfgnv10tVgbEIusNb4bF/sSuChdZKK3ILwOlqIPDlQNdMwF1xRA2xt5J7tb26UgyIzoCI4P3bJYMULWsEkk+UwHiJH0YO9ulkTZI/j0N+hLXQLJTZPjmKtMk/tE0NbBmFVL4md89hUcR5gKTGGrNzEMJ58K+zqeDG/DubkcIbA5ZuqKv+oE5m0pDODZExxnC+oeENTvq/VfYwOfD0pTDrBNYjj+Bm3YiyGDzQAgov9XPDG8g/fKEs/LNAT79UZXkZlFO99Yn/vrYH9o5DKpOE9smENUXylb55MgLTUiYe17CTp7pB3trbJl3wwIbLjSmTjAdSUNgPv8qDP4uk3K4U32mknXCDDkU9EI7f6F731ocdoxsGarEBcPcgjs73Y84iwDteQp847Gigtgo4Y4TCWH657uzLolR2O8NSw+vWT0VNI9qtR5PZD7iVYtSp1qHtPAKowCztodewY2Nu+Ds9Z95udf4GPUkFg/SNEJPTPrQFLiiJZ8UYP8NJEuA+IP1tc2zG3zU/ADrjenRC1ZiupQG7OMH82y11408U6PcHFSlF+7NuDkac=

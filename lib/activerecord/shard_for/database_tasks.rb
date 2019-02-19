@@ -4,6 +4,11 @@ module ActiveRecord
       module_function
 
       # @return [Boolean]
+      def ar6?
+        ActiveRecord::VERSION::MAJOR == 6
+      end
+
+      # @return [Boolean]
       def ar5?
         ActiveRecord::VERSION::MAJOR == 5
       end
@@ -167,7 +172,7 @@ module ActiveRecord
           configuration = ActiveRecord::Base.configurations[connection_name]
 
           case
-          when ar5?
+          when ar5? || ar6?
             ActiveRecord::Tasks::DatabaseTasks.load_schema(configuration, :ruby)
           when ar42? || ar417_above?
             ActiveRecord::Tasks::DatabaseTasks.load_schema_for(configuration, :ruby)
