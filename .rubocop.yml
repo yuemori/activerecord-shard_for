@@ -1,17 +1,30 @@
+require:
+- rubocop-performance
+
 AllCops:
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.5
   Exclude:
-    - activerecord-shard_for.gemspec
-    - Guardfile
-    - lib/activerecord/tasks/activerecord_shard_for.rake
-    - gemfiles/**/*
-    - vendor/bundle/**/*
+  - Gemfile
+  - Rakefile
+  - examples/**/*
+  - kube_queue.gemspec
+  - Guardfile
+  - vendor/**/*
   DisplayCopNames: true
+
+Gemspec/OrderedDependencies:
+  Enabled: false
+
+Style/NumericLiterals:
+  Enabled: false
 
 Style/StderrPuts:
   Enabled: false
 
-Naming/UncommunicativeMethodParamName:
+Naming/MethodParameterName:
+  Enabled: false
+
+Style/StringLiterals:
   Enabled: false
 
 Style/ExpandPathArguments:
@@ -26,24 +39,20 @@ Style/FrozenStringLiteralComment:
 Style/Documentation:
   Enabled: false
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 128
 
 Style/EmptyCaseCondition:
   Enabled: false
 
-Layout/EmptyLineAfterMagicComment:
+Layout/ArgumentAlignment:
   Enabled: false
-
-Layout/FileName:
-  Exclude:
-    - Appraisals
 
 Metrics/MethodLength:
   Max: 15
 
 Metrics/AbcSize:
-  Max: 20
+  Max: 25
 
 Style/ParallelAssignment:
   Enabled: false
@@ -52,5 +61,11 @@ Style/Alias:
   EnforcedStyle: prefer_alias_method
 
 Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*.rb'
+    - 'lib/activerecord/tasks/*.rake'
+    - 'activerecord-shard_for.gemspec'
+
+Style/MixinUsage:
   Exclude:
     - 'spec/**/*.rb'

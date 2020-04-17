@@ -10,17 +10,17 @@ namespace :activerecord do
     end
 
     desc 'Create all databases in all clusters'
-    task :create_all => :environment do
+    task create_all: :environment do
       ActiveRecord::ShardFor::DatabaseTasks.invoke_task_for_all_clusters('create')
     end
 
     desc 'Drop all databases in all clusters'
-    task :drop_all => :environment do
+    task drop_all: :environment do
       ActiveRecord::ShardFor::DatabaseTasks.invoke_task_for_all_clusters('drop')
     end
 
     desc 'Load schema to all databases in all clusters'
-    task :load_schema_all => :environment do
+    task load_schema_all: :environment do
       ActiveRecord::ShardFor::DatabaseTasks.invoke_task_for_all_clusters('load_schema')
     end
 
