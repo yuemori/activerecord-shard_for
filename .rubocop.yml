@@ -10,6 +10,7 @@ AllCops:
   - kube_queue.gemspec
   - Guardfile
   - vendor/**/*
+  - gemfiles/**/*
   DisplayCopNames: true
 
 Gemspec/OrderedDependencies:
