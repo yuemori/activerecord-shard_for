@@ -2,9 +2,10 @@ language: ruby
 sudo: false
 rvm:
 - 2.3.8
-- 2.4.5
-- 2.5.3
-- 2.6.1
+- 2.4.10
+- 2.5.8
+- 2.6.6
+- 2.7.1
 branches:
   only:
     - master
@@ -25,17 +26,16 @@ gemfile:
 - gemfiles/rails_edge.gemfile
 matrix:
   allow_failures:
-  - gemfile: gemfiles/ar_6.0.gemfile
   - gemfile: gemfiles/rails_edge.gemfile
-  # rails_edge required ruby version over 2.5.0
+  # rails6 and rails_edge required ruby version over 2.5.0
   exclude:
   - rvm: 2.3.8
     gemfile: gemfiles/rails_edge.gemfile
-  - rvm: 2.4.5
+  - rvm: 2.4.10
     gemfile: gemfiles/rails_edge.gemfile
   - rvm: 2.3.8
     gemfile: gemfiles/ar_6.0.gemfile
-  - rvm: 2.4.5
+  - rvm: 2.4.10
     gemfile: gemfiles/ar_6.0.gemfile
 notifications:
   slack:
